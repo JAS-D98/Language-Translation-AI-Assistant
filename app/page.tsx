@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import Image from "next/image";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const initialValues = {
   language: "",
@@ -15,7 +15,7 @@ const initialValues = {
 const page = () => {
   const [loading, setLoading] = useState(false);
   const [translation, setTranslation] = useState("");
-  
+
   const {
     values,
     errors,
@@ -27,22 +27,24 @@ const page = () => {
   } = useFormik({
     initialValues,
     validationSchema: Yup.object({
-      translation: Yup.string().min(3).required("Please enter a word you wish to have translated"),
+      translation: Yup.string()
+        .min(3)
+        .required("Please enter a word you wish to have translated"),
       language: Yup.string().required("Please select a language"),
     }),
     onSubmit: async (values) => {
       try {
         setLoading(true);
-        const response = await axios.post('/api/openai', values);
+        const response = await axios.post("/api/openai", values);
 
         if (response?.data?.result) {
-          toast.success('Translation successful!');
-          setTranslation(response.data.result); 
+          toast.success("Translation successful!");
+          setTranslation(response.data.result);
         } else {
-          toast.error('An error occurred. Please try again...');
+          toast.error("An error occurred. Please try again...");
         }
       } catch (error) {
-        toast.error('Error while fetching translation');
+        toast.error("Error while fetching translation");
       } finally {
         setLoading(false);
       }
@@ -61,7 +63,10 @@ const page = () => {
             className="object-cover w-full h-full"
           />
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center space-y-4 w-full px-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center space-y-4 w-full px-4"
+        >
           <h1 className="text-blue-600 font-bold text-xl md:text-2xl">
             Text to Translate <span>👇</span>
           </h1>
@@ -96,7 +101,14 @@ const page = () => {
                 className="text-gray-800"
               />
               <label htmlFor="french" className="flex items-center gap-2">
-                French <Image width={100} height={100} src="/french.png" alt="France flag" className="w-4 h-4" />
+                French{" "}
+                <Image
+                  width={100}
+                  height={100}
+                  src="/french.png"
+                  alt="France flag"
+                  className="w-4 h-4"
+                />
               </label>
             </div>
             {errors.language && touched.language && (
@@ -117,7 +129,14 @@ const page = () => {
                 className="text-gray-800"
               />
               <label htmlFor="spanish" className="flex items-center gap-2">
-                Spanish <Image width={100} height={100} src="/spanish.png" alt="Spain flag" className="w-4 h-4" />
+                Spanish{" "}
+                <Image
+                  width={100}
+                  height={100}
+                  src="/spanish.png"
+                  alt="Spain flag"
+                  className="w-4 h-4"
+                />
               </label>
             </div>
 
@@ -135,7 +154,14 @@ const page = () => {
                 className="text-gray-800"
               />
               <label htmlFor="japanese" className="flex items-center gap-2">
-                Japanese <Image width={100} height={100} src="/japanese.png" alt="Japan flag" className="w-4 h-4" />
+                Japanese{" "}
+                <Image
+                  width={100}
+                  height={100}
+                  src="/japanese.png"
+                  alt="Japan flag"
+                  className="w-4 h-4"
+                />
               </label>
             </div>
           </div>
