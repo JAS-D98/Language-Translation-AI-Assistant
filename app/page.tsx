@@ -41,7 +41,7 @@ const page = () => {
           toast.success("Translation successful!");
           setTranslation(response.data.result);
         } else {
-          toast.error("An error occurred. Please try again...");
+          toast.error("An error occurred. Please try again using shorter sentences...");
         }
       } catch (error) {
         toast.error("Error while fetching translation");
